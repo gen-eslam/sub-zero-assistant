@@ -15,6 +15,8 @@ from time import sleep
 engine = pyttsx3.init()
 voice = engine.getProperty('voices')
 engine.setProperty('voice', voice[1].id)
+newvoicerate = 190
+engine.setProperty('rate',newvoicerate)
 model = Model("D:\projects\AI assistant\model")
 recognizer = KaldiRecognizer(model, 16000)
 
