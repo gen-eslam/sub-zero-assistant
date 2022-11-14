@@ -1,3 +1,6 @@
+import random
+import string
+import psutil
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -6,6 +9,7 @@ import pyaudio
 import wikipedia
 import urllib.request
 import os
+import pyautogui
 from time import sleep
 
 engine = pyttsx3.init()
@@ -76,6 +80,13 @@ def wishme():
     speak("please tell me how can i help you ")
 
 
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak('CPU is at' + usage)
+    battery = psutil.sensors_battery().percent
+    speak('battery is at' + str(usage))
+
+
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -92,6 +103,12 @@ def takeCommand():
         return "none"
 
     return query
+
+
+def screenshot():
+    img = pyautogui.screenshot()
+    result_str = ''.join(random.choice(string.ascii_letters) for i in range(10))
+    img.save('screenShots\\' + result_str + '.png')
 
 
 if __name__ == "__main__":
@@ -126,6 +143,12 @@ if __name__ == "__main__":
                 speak("sir you are on online mode")
             else:
                 speak("sorry you are on offline mode")
+        elif 'status' in query:
+            cpu()
+        elif 'screenshot' in query:
+            speak("taking screen shot")
+            screenshot()
+            speak('mission success sir')
         elif 'search' in query:
             speak("what should i search ?")
             search = takeCommand().lower()
