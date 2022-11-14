@@ -13,6 +13,8 @@ import pyautogui
 from time import sleep
 
 engine = pyttsx3.init()
+voice = engine.getProperty('voices')
+engine.setProperty('voice', voice[1].id)
 model = Model("D:\projects\AI assistant\model")
 recognizer = KaldiRecognizer(model, 16000)
 
